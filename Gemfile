@@ -5,48 +5,45 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '3.3.0'
+ruby '4.0.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '6.1.7.7'
+gem 'rails', '8.1.3'
 # Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg', '~> 1.6'
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
-# Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
+gem 'puma', '~> 7.2'
+# Keep the existing Sprockets asset pipeline
+gem 'sprockets-rails', '~> 3.5'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
-gem 'rails-i18n'
+gem 'rails-i18n', '~> 8.1'
 
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'debug', platforms: [:mri, :windows], require: 'debug/prelude'
   gem 'capybara', '>= 2.15'
+  gem 'csv'
   gem 'selenium-webdriver'
   gem 'pry-rails'
   gem 'faker'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 8.0'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
 end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'listen', '~> 3.9'
+  gem 'spring', '~> 4.7'
+  gem 'spring-watcher-listen', '~> 2.1'
 end
 
 group :test do
-  gem 'capybara', '>= 2.15'
   gem 'rails-controller-testing'
-  gem "shoulda-matchers"
-  gem 'webdrivers'
+  gem 'shoulda-matchers'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:windows, :jruby]

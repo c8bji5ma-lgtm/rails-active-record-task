@@ -10,32 +10,38 @@ permissions:
 jobs:
   build:
 
+    env:
+      DISABLE_SPRING: "1"
+
     runs-on: ubuntu-latest
 
     services:
       postgres:
-        image: postgres:12.1-alpine
+        image: postgres:18.4-alpine
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - name: Set up Ruby and Bundler
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3.0
+          ruby-version: 4.0.5
           bundler-cache: true
       - name: Set up Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v7
         with:
-          node-version: '18'
+          node-version: '24.18.0'
       - name: Install Yarn
         run: yarn --frozen-lockfile
       - name: Create Evaluation File
         run: |
           rm -rf spec
           git clone https://github.com/diveintocode-corp/cdp_web_rails_table_join_task_evaluation_code.git spec
+          sed -i 's|config\.fixture_path = "#{::Rails.root}/spec/fixtures"|config.fixture_paths = [Rails.root.join("spec/fixtures")]|' spec/rails_helper.rb
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
       - name: Create Evaluation File
